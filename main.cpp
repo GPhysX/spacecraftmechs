@@ -72,20 +72,52 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
             struct timespec ts_delta = ts_now - ts_last;
             long long delta = ((long long)ts_delta.tv_sec) * 1000000000LL + (long long)ts_delta.tv_nsec;
 
-            cout << delta << endl;
-
             ts_last = ts_now;
 
-		    VectorD vt;   // translation command
-		    VectorD vr;   // rotation command
-		    QuaternionD q; // rotation result
+		    VectorD vt(0, 0, 0);   // translation command
+		    VectorD vr(0, 0, 0);   // rotation command
+		    QuaternionD q(0, 0, 0, 0); // rotation result
 
-//		    if(VERTEX_KEY_PRESSED(VERTEX_KEY_UP))
-//                cout << ts.tv_nsec << endl;
+            double dangle = 2 * M_PI / 10;
+		    if(VERTEX_KEY_PRESSED(VERTEX_KEY_UP))
+                craft.Step(((double)delta) * 1e-9, VectorD(0, 0, 0), VectorD(dangle, 0, 0));
+		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_DOWN))
+                craft.Step(((double)delta) * 1e-9, VectorD(0, 0, 0), VectorD(-dangle, 0, 0));
+		    else
+                craft.Step(((double)delta) * 1e-9, VectorD(0, 0, 0), VectorD(0, 0, 0));
 
 			glLoadIdentity ();
 
-			glTranslatef (0.0, 0.0, -5.0);
+			// Craft transformation
+			{
+                QuaternionD q = craft.get_orientation();
+
+                VectorD tmp(q.get_u(), q.get_v(), q.get_w());
+
+                double angle = atan2f( sqrt(tmp.get_norm2()), q.get_a() ) * 180 / M_PI;
+                cout << q << " " << angle <<endl;
+
+                glRotated(angle, q.get_u(), q.get_v(), q.get_w());
+			}
+			// End Craft transformation
+
+			glTranslatef (0.0, 0.0, -50.0);
+			glColor3f (1, 1, 1);
+			gluSphere (quadric, 1.0, 16, 16);
+
+			glTranslatef (0.0, 0.0, 100.0);
+			glColor3f (1, 1, 1);
+			gluSphere (quadric, 1.0, 16, 16);
+
+			glTranslatef (0.0, 50.0, -150.0);
+			glColor3f (1, 1, 1);
+			gluSphere (quadric, 1.0, 16, 16);
+
+			glTranslatef (0.0, -100.0, 100.0);
+			glColor3f (1, 1, 1);
+			gluSphere (quadric, 1.0, 16, 16);
+
+			glTranslatef (0.0, 50.0, -50.0);
 			glColor3f (1, 1, 1);
 			gluSphere (quadric, 1.0, 16, 16);
 		}

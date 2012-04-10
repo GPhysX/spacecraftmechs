@@ -36,6 +36,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="MathTools/GeometryTools.hpp" />
 		<Unit filename="MathTools/PascalTriangle.hpp" />
 		<Unit filename="MathTools/Quaternion.hpp" />
 		<Unit filename="MathTools/StaticMath.hpp" />
