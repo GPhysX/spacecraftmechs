@@ -1,212 +1,99 @@
+//
+// main.cc for graviball in
+//
+// Made by
+// Login   <@epita.fr>
+//
+// Started on  Sun Nov 19 14:51:54 2006
+// Last update Sun Nov 19 19:22:44 2006
+//
+
+#include <iostream>
+#include "factory/vertex.h"
+
 #include "MathTools/Vector.hpp"
 #include "MathTools/Quaternion.hpp"
-#include "Mechanics/AutomaticSystem.hpp"
-
-#include <windows.h>
-#include <math.h>
-
-using namespace MathTools;
-
-int test_Quaternion()
-{
-    QuaternionD a(1,1,1,1);
-
-    cout << a * I << " " << I * a << " " << I * I << endl;
-
-    return 0;
-}
-
-int test_Vector()
-{
-    VectorD v1(1,1,1), v2(0,1,1);
-
-    cout << v1 * v2 << " " << (v1 ^ v2) << endl;
-
-    return 0;
-}
-
-int test_Pascal()
-{
-    PascalTriangle<20> p;
-
-    int sum = 0;
-
-    DWORD t0 = GetTickCount();
-
-    for(int iter = 0 ; iter < 10000 ; ++iter)
-    {
-        for(int i = 1 ; i <= 10 ; ++i)
-        {
-            for(int j = 1 ; j <= i ; ++j)
-            {
-                sum += p.Get(i, j);
-            }
-        }
-    }
-
-    DWORD t1 = GetTickCount();
-
-    cout << t1 - t0 << endl;
-
-    cout << sum << endl << endl;
-
-    for(int i = 1 ; i <= 10 ; ++i)
-    {
-        for(int j = 1 ; j <= i ; ++j)
-        {
-            cout << p.Get(i, j) << endl;
-        }
-
-        cout << endl;
-    }
-
-
-    return 0;
-}
-
-using namespace Mechanics;
-
-#include <fstream>
-#include <sstream>
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
+#include "SpaceCraft/SpaceCraft.hpp"
 
 using namespace std;
+using namespace MathTools;
 
-int test_filterVector()
+struct timespec operator-(struct timespec x, struct timespec y)
 {
-    srand(time(0));
+    struct timespec ret;
 
-    double coeffa[4] = {0, 1, 1, 1};
-    double coeffb[1] = {1};
+    ret.tv_sec = x.tv_sec - y.tv_sec;
+    ret.tv_nsec = x.tv_nsec - y.tv_nsec;
 
-    LinearAutomaticSystem<VectorD, 3, 0> a(coeffa, coeffb);
-
-    fstream f("caca.csv", ios::out);
-
-    double accu = 0;
-    VectorD command;
-
-    for(int i = 0 ; i < 10000 ; ++i)
+    if(ret.tv_nsec < 0)
     {
-        double timeStep = 0.02 + 0.01 * (2.0 * rand() / ((double)RAND_MAX) - 1);
-        accu += timeStep;
-
-        if(accu < 50)
-            command = VectorD(10., 5.0, 2.0);
-        else
-            command = VectorD(0., 0.5, .0);
-
-        VectorD result = a.Step(timeStep, command);
-
-        f << accu << ";" <<  result.get_x() << ";" << result.get_y() << ";" << result.get_z() << endl;
+        ret.tv_sec -= 1;
+        ret.tv_nsec += 1000000000;
     }
 
-    f.close();
-
-    return 0;
+    return ret;
 }
 
-bool isNaN(const VectorD & v)
+ostream & operator<<(ostream & o, struct timespec ts)
 {
-    return isnan(v.get_x()) || isnan(v.get_y()) || isnan(v.get_z());
+    o << ts.tv_sec << ts.tv_nsec << endl;
+
+    return o;
 }
 
-QuaternionD Ln(const QuaternionD & q)
+double at[] = {0, 1, 1};
+double ar[] = {1, 1};
+
+SpaceCraftMech::SpaceCraft craft(at, ar);
+
+int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((unused)))
 {
-    VectorD v(q.get_u(), q.get_v(), q.get_w());
+	GLUquadricObj*	quadric;
 
-    double a = log(q.get_norm2()) / 2;
+	if (!vertexInit (640, 480, 16, 0))
+	{
+		quadric = gluNewQuadric ();
+		gluQuadricNormals (quadric, GLU_SMOOTH);
+		gluQuadricTexture (quadric, GL_TRUE);
 
-    double v_coeff = q.get_a() / (sqrt(q.get_norm2()));
-    v_coeff = acos(v_coeff);
-    v_coeff /= sqrt(v.get_norm2());
+		vertexSetMouse (0, 1);
+		vertexSetWindow ("Spacecraft test", NULL);
+		vertexLoop (0);
 
-    if(isnan(v_coeff))
-    {
-        return QuaternionD(a, 0, 0, 0);
-    }
+        struct timespec ts_last, ts_now;
+        while(clock_gettime(CLOCK_MONOTONIC,&ts_last) != 0)
+            continue;
 
-    v *= v_coeff;
+		while (!vertexLoop (0) && !VERTEX_KEY_PRESSED (VERTEX_KEY_ESCAPE))
+		{
+            if(clock_gettime(CLOCK_MONOTONIC,&ts_now) != 0)
+                continue;
 
-    return QuaternionD(a, v.get_x(), v.get_y(), v.get_z());
-}
+            struct timespec ts_delta = ts_now - ts_last;
+            long long delta = ((long long)ts_delta.tv_sec) * 1000000000LL + (long long)ts_delta.tv_nsec;
 
-QuaternionD Exp(const QuaternionD & q)
-{
-    double exp_a = exp(q.get_a());
+            cout << delta << endl;
 
-    VectorD v(q.get_u(), q.get_v(), q.get_w());
+            ts_last = ts_now;
 
-    double vnorm = sqrt(v.get_norm2());
-    double inv_vnorm = 1 / vnorm;
+		    VectorD vt;   // translation command
+		    VectorD vr;   // rotation command
+		    QuaternionD q; // rotation result
 
-    double a = exp_a*cos(vnorm);
+//		    if(VERTEX_KEY_PRESSED(VERTEX_KEY_UP))
+//                cout << ts.tv_nsec << endl;
 
-    if(isnan(inv_vnorm) || isinf(inv_vnorm))
-    {
-        return QuaternionD(a, 0, 0, 0);
-    }
+			glLoadIdentity ();
 
-    v *= (inv_vnorm * sin(vnorm));
+			glTranslatef (0.0, 0.0, -5.0);
+			glColor3f (1, 1, 1);
+			gluSphere (quadric, 1.0, 16, 16);
+		}
 
-    return QuaternionD(a, v.get_x(), v.get_y(), v.get_z());
-}
+		gluDeleteQuadric (quadric);
 
-#include "MathTools/GeometryTools.hpp"
+		vertexStop ();
+	}
 
-int main()
-{
-    double coeffa[3] = {1, 1, 1};
-    double coeffb[1] = {1};
-
-    LinearAutomaticSystem<VectorD, 2, 0> a(coeffa, coeffb);
-
-    fstream f("caca.csv", ios::out);
-
-    double accu = 0;
-    VectorD command;
-
-    QuaternionD orientation(1, 0, 0, 0);
-
-    const double delta = 2 * M_PI / 20;
-
-    for(int i = 0 ; i < 10000 ; ++i)
-    {
-        double timeStep = 0.02 + 0.01 * (2.0 * rand() / ((double)RAND_MAX) - 1);
-        accu += timeStep;
-
-        if(accu < 40)
-            command = Rotate(VectorD(0, delta, 0), orientation);
-        else if(accu < 80)
-            command = Rotate(VectorD(0, 0, delta), orientation);
-        else
-            command = VectorD(0, 0, 0);
-
-        VectorD result = a.Step(timeStep, command);
-
-        double norm = sqrt(result.get_norm2());
-
-        QuaternionD q(1, 0, 0, 0);
-
-        if(norm > 0)
-        {
-            result /= norm;
-            norm *= timeStep;
-            q = QuaternionD(cos(norm), sin(norm) * result.get_x(), sin(norm) * result.get_y(), sin(norm) * result.get_z());
-        }
-
-        orientation = q * orientation;
-
-        VectorD v = Rotate(VectorD(0, 1, 0), orientation);
-
-        f << accu << ";" << v.get_x() << ";" << v.get_y() << ";" << v.get_z() << endl;
-        //f << accu << ";" <<  q.get_a() << ";" << q.get_u() << ";" << q.get_v() << ";" << q.get_w() << endl;
-        //f << accu << ";" <<  orientation.get_a() << ";" << orientation.get_u() << ";" << orientation.get_v() << ";" << orientation.get_w() << endl;
-    }
-
-    f.close();
-
-    return 0;
+	return 0;
 }

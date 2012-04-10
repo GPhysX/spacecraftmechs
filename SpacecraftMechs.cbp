@@ -7,17 +7,22 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="bin/Debug/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add option="-lGL" />
+					<Add option="-lSDL" />
+					<Add option="-lGLU" />
+				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+				<Option output="bin/Release/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -31,19 +36,24 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="MathTools\PascalTriangle.hpp" />
-		<Unit filename="MathTools\Quaternion.hpp" />
-		<Unit filename="MathTools\StaticMath.hpp" />
-		<Unit filename="MathTools\TimeLineVar.hpp" />
-		<Unit filename="MathTools\Vector.hpp" />
-		<Unit filename="Mechanics\AutomaticIo.hpp" />
-		<Unit filename="Mechanics\AutomaticSystem.hpp" />
-		<Unit filename="Mechanics\PhysicalObject.hpp" />
-		<Unit filename="SpaceCraft\SpaceCraft.hpp" />
+		<Unit filename="MathTools/PascalTriangle.hpp" />
+		<Unit filename="MathTools/Quaternion.hpp" />
+		<Unit filename="MathTools/StaticMath.hpp" />
+		<Unit filename="MathTools/TimeLineVar.hpp" />
+		<Unit filename="MathTools/Vector.hpp" />
+		<Unit filename="Mechanics/AutomaticIo.hpp" />
+		<Unit filename="Mechanics/AutomaticSystem.hpp" />
+		<Unit filename="Mechanics/PhysicalObject.hpp" />
+		<Unit filename="SpaceCraft/SpaceCraft.hpp" />
+		<Unit filename="factory/vertex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="factory/vertex.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
