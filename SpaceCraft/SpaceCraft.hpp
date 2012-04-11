@@ -30,11 +30,11 @@ namespace SpaceCraftMech
             orientation = QuaternionD(1, 0, 0, 0);
         }
 
-        void Step(double delta, VectorD tcommand, VectorD rcommand)
+        void Step(double delta, double rxCommand, double rzCommand, double throttle)
         {
-            rcommand = Rotate(rcommand, this->orientation);
+            VectorD vCommand = Rotate(VectorD(rxCommand, 0, rzCommand), this->orientation);
 
-            VectorD rresult = rmodel.Step(delta, rcommand);
+            VectorD rresult = rmodel.Step(delta, vCommand);
 
             double norm = sqrt(rresult.get_norm2());
 
@@ -49,7 +49,7 @@ namespace SpaceCraftMech
             }
 
             this->orientation = q * this->orientation;
-            //this->orientation = (this->orientation /  sqrt(this->orientation.get_norm2())); compil error : WTF !!
+            this->orientation = (this->orientation /  sqrt(this->orientation.get_norm2()));
         }
     };
 }

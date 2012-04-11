@@ -18,29 +18,6 @@
 using namespace std;
 using namespace MathTools;
 
-struct timespec operator-(struct timespec x, struct timespec y)
-{
-    struct timespec ret;
-
-    ret.tv_sec = x.tv_sec - y.tv_sec;
-    ret.tv_nsec = x.tv_nsec - y.tv_nsec;
-
-    if(ret.tv_nsec < 0)
-    {
-        ret.tv_sec -= 1;
-        ret.tv_nsec += 1000000000;
-    }
-
-    return ret;
-}
-
-ostream & operator<<(ostream & o, struct timespec ts)
-{
-    o << ts.tv_sec << ts.tv_nsec << endl;
-
-    return o;
-}
-
 double at[] = {0, 1, 1};
 double ar[] = {1, 1};
 
@@ -60,66 +37,64 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		vertexSetWindow ("Spacecraft test", NULL);
 		vertexLoop (0);
 
-        struct timespec ts_last, ts_now;
-        while(clock_gettime(CLOCK_MONOTONIC,&ts_last) != 0)
-            continue;
+        const double dangle = 2 * M_PI / 10;
+		glVertex.factor = 1e-3;
 
 		while (!vertexLoop (0) && !VERTEX_KEY_PRESSED (VERTEX_KEY_ESCAPE))
 		{
-            if(clock_gettime(CLOCK_MONOTONIC,&ts_now) != 0)
-                continue;
-
-            struct timespec ts_delta = ts_now - ts_last;
-            long long delta = ((long long)ts_delta.tv_sec) * 1000000000LL + (long long)ts_delta.tv_nsec;
-
-            ts_last = ts_now;
-
 		    VectorD vt(0, 0, 0);   // translation command
 		    VectorD vr(0, 0, 0);   // rotation command
-		    QuaternionD q(0, 0, 0, 0); // rotation result
 
-            double dangle = 2 * M_PI / 10;
+            double rzCommand = 0, rxCommand = 0;
+
 		    if(VERTEX_KEY_PRESSED(VERTEX_KEY_UP))
-                craft.Step(((double)delta) * 1e-9, VectorD(0, 0, 0), VectorD(dangle, 0, 0));
+                rxCommand = -dangle;
 		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_DOWN))
-                craft.Step(((double)delta) * 1e-9, VectorD(0, 0, 0), VectorD(-dangle, 0, 0));
-		    else
-                craft.Step(((double)delta) * 1e-9, VectorD(0, 0, 0), VectorD(0, 0, 0));
+                rxCommand = dangle;
 
-			glLoadIdentity ();
+		    if(VERTEX_KEY_PRESSED(VERTEX_KEY_LEFT))
+                rzCommand = dangle;
+		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_RIGHT))
+                rzCommand = -dangle;
+
+            craft.Step(glVertex.speed, rxCommand, rzCommand, 0);
+
+			glLoadIdentity();
 
 			// Craft transformation
-			{
                 QuaternionD q = craft.get_orientation();
 
                 VectorD tmp(q.get_u(), q.get_v(), q.get_w());
 
                 double angle = atan2f( sqrt(tmp.get_norm2()), q.get_a() ) * 180 / M_PI;
-                cout << q << " " << angle <<endl;
+                cout << Rotate(VectorD(0,0,1), q) << " " << angle <<endl;
 
-                glRotated(angle, q.get_u(), q.get_v(), q.get_w());
-			}
+                glRotated(- 2 * angle, q.get_u(), q.get_v(), q.get_w());
 			// End Craft transformation
 
+            glPushMatrix();
 			glTranslatef (0.0, 0.0, -50.0);
-			glColor3f (1, 1, 1);
-			gluSphere (quadric, 1.0, 16, 16);
+			glColor3f (1, 0, 0);
+			gluSphere (quadric, 1.0, 3, 3);
+			glPopMatrix();
 
-			glTranslatef (0.0, 0.0, 100.0);
-			glColor3f (1, 1, 1);
-			gluSphere (quadric, 1.0, 16, 16);
+            glPushMatrix();
+			glTranslatef (0.0, -50.0, 0.0);
+			glColor3f (0, 1, 0);
+			gluSphere (quadric, 1.0, 3, 3);
+			glPopMatrix();
 
-			glTranslatef (0.0, 50.0, -150.0);
-			glColor3f (1, 1, 1);
+            glPushMatrix();
+			glTranslatef (0.0, 0.0, 50.0);
+			glColor3f (0, 0, 1);
 			gluSphere (quadric, 1.0, 16, 16);
+			glPopMatrix();
 
-			glTranslatef (0.0, -100.0, 100.0);
-			glColor3f (1, 1, 1);
+            glPushMatrix();
+			glTranslatef (0.0, 50.0, 0.0);
+			glColor3f (1, 0, 1);
 			gluSphere (quadric, 1.0, 16, 16);
-
-			glTranslatef (0.0, 50.0, -50.0);
-			glColor3f (1, 1, 1);
-			gluSphere (quadric, 1.0, 16, 16);
+			glPopMatrix();
 		}
 
 		gluDeleteQuadric (quadric);
