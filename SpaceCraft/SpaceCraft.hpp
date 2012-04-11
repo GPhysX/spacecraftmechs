@@ -36,8 +36,6 @@ namespace SpaceCraftMech
 
             VectorD rresult = rmodel.Step(delta, vCommand);
 
-            cout << vCommand  << " " << rresult << endl;
-
             double norm = sqrt(rresult.get_norm2());
 
             QuaternionD q(1, 0, 0, 0);

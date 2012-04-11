@@ -38,7 +38,6 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		vertexSetWindow ("Spacecraft test", NULL);
 		vertexLoop (0);
 
-        const double dangle = 2 * M_PI / 10;
 		glVertex.factor = 0.001;
 
 		while (!vertexLoop (0) && !VERTEX_KEY_PRESSED (VERTEX_KEY_ESCAPE))
@@ -46,22 +45,23 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		    VectorD vt(0, 0, 0);   // translation command
 		    VectorD vr(0, 0, 0);   // rotation command
 
-            double rzCommand = 0, rxCommand = 0;
+            double rzCommand = 0, rxCommand = 0, throttle = 0;
 
 		    if(VERTEX_KEY_PRESSED(VERTEX_KEY_UP))
-                rxCommand = -dangle;
+                rxCommand = -1;
 		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_DOWN))
-                rxCommand = dangle;
+                rxCommand = 1;
 
 		    if(VERTEX_KEY_PRESSED(VERTEX_KEY_LEFT))
-                rzCommand = dangle;
+                rzCommand = 1;
 		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_RIGHT))
-                rzCommand = -dangle;
+                rzCommand = -1;
+
+		    if(VERTEX_KEY_PRESSED('Z'))
+                throttle = 1;
 
             if(glVertex.speed > 1e-5)
                 craft.Step(glVertex.speed, rxCommand, rzCommand, 0);
-
-            //cout << rxCommand << " " << rzCommand << endl;
 
 			glLoadIdentity();
 
@@ -71,7 +71,6 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
                 VectorD tmp(q.get_u(), q.get_v(), q.get_w());
 
                 double angle = atan2f( sqrt(tmp.get_norm2()), q.get_a() ) * 180 / M_PI;
-                //cout << Rotate(VectorD(0,0,1), q) << " " << angle <<endl;
 
                 glRotated(- 2 * angle, q.get_u(), q.get_v(), q.get_w());
 			// End Craft transformation

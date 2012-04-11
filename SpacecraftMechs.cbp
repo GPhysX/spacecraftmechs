@@ -6,23 +6,23 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
-				<Option output="bin\Debug\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+			<Target title="DebugWin32">
+				<Option output="bin/DebugWin32/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugWin32/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libopengl32.a" />
-					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libglu32.a" />
-					<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libgdi32.a" />
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libopengl32.a" />
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libglu32.a" />
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libgdi32.a" />
 				</Linker>
 			</Target>
-			<Target title="Release">
-				<Option output="bin\Release\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+			<Target title="ReleaseWin32">
+				<Option output="bin/ReleaseWin32/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/ReleaseWin32/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -30,26 +30,91 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libopengl32.a" />
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libglu32.a" />
+					<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libgdi32.a" />
+				</Linker>
+			</Target>
+			<Target title="DebugLinux">
+				<Option output="bin/DebugLinux/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugLinux/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lSDL" />
+					<Add option="-lGL" />
+					<Add option="-lGLU" />
+				</Linker>
+			</Target>
+			<Target title="ReleaseLinux">
+				<Option output="bin/ReleaseLinux/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/ReleaseLinux/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lSDL" />
+					<Add option="-lGL" />
+					<Add option="-lGLU" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="MathTools\GeometryTools.hpp" />
-		<Unit filename="MathTools\PascalTriangle.hpp" />
-		<Unit filename="MathTools\Quaternion.hpp" />
-		<Unit filename="MathTools\StaticMath.hpp" />
-		<Unit filename="MathTools\TimeLineVar.hpp" />
-		<Unit filename="MathTools\Vector.hpp" />
-		<Unit filename="Mechanics\AutomaticIo.hpp" />
-		<Unit filename="Mechanics\AutomaticSystem.hpp" />
-		<Unit filename="Mechanics\PhysicalObject.hpp" />
-		<Unit filename="SpaceCraft\SpaceCraft.hpp" />
-		<Unit filename="factory\vertex.c">
+		<Unit filename="MathTools/GeometryTools.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="MathTools/PascalTriangle.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="MathTools/Quaternion.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="MathTools/StaticMath.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="MathTools/TimeLineVar.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="MathTools/Vector.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="Mechanics/AutomaticIo.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="Mechanics/AutomaticSystem.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="Mechanics/PhysicalObject.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="SpaceCraft/SpaceCraft.hpp">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
+		<Unit filename="factory/vertex.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="factory\vertex.h" />
+		<Unit filename="factory/vertex.h">
+			<Option target="DebugWin32" />
+			<Option target="ReleaseWin32" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
