@@ -24,6 +24,7 @@ namespace SpaceCraftMech
         public :
 
         SpaceCraft(double at[3], double ar[2]) :
+            PhysicalObject(),
             tmodel(at, bbuffer),
             rmodel(ar, bbuffer)
         {
