@@ -32,13 +32,14 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		quadric = gluNewQuadric ();
 		gluQuadricNormals (quadric, GLU_SMOOTH);
 		gluQuadricTexture (quadric, GL_TRUE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		vertexSetMouse (0, 1);
 		vertexSetWindow ("Spacecraft test", NULL);
 		vertexLoop (0);
 
         const double dangle = 2 * M_PI / 10;
-		glVertex.factor = 1e-3;
+		glVertex.factor = 0.001;
 
 		while (!vertexLoop (0) && !VERTEX_KEY_PRESSED (VERTEX_KEY_ESCAPE))
 		{
@@ -57,7 +58,10 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_RIGHT))
                 rzCommand = -dangle;
 
-            craft.Step(glVertex.speed, rxCommand, rzCommand, 0);
+            if(glVertex.speed > 1e-5)
+                craft.Step(glVertex.speed, rxCommand, rzCommand, 0);
+
+            //cout << rxCommand << " " << rzCommand << endl;
 
 			glLoadIdentity();
 
@@ -67,33 +71,15 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
                 VectorD tmp(q.get_u(), q.get_v(), q.get_w());
 
                 double angle = atan2f( sqrt(tmp.get_norm2()), q.get_a() ) * 180 / M_PI;
-                cout << Rotate(VectorD(0,0,1), q) << " " << angle <<endl;
+                //cout << Rotate(VectorD(0,0,1), q) << " " << angle <<endl;
 
                 glRotated(- 2 * angle, q.get_u(), q.get_v(), q.get_w());
 			// End Craft transformation
 
             glPushMatrix();
-			glTranslatef (0.0, 0.0, -50.0);
+			glTranslatef (0.0, 0.0, 0.0);
 			glColor3f (1, 0, 0);
-			gluSphere (quadric, 1.0, 3, 3);
-			glPopMatrix();
-
-            glPushMatrix();
-			glTranslatef (0.0, -50.0, 0.0);
-			glColor3f (0, 1, 0);
-			gluSphere (quadric, 1.0, 3, 3);
-			glPopMatrix();
-
-            glPushMatrix();
-			glTranslatef (0.0, 0.0, 50.0);
-			glColor3f (0, 0, 1);
-			gluSphere (quadric, 1.0, 16, 16);
-			glPopMatrix();
-
-            glPushMatrix();
-			glTranslatef (0.0, 50.0, 0.0);
-			glColor3f (1, 0, 1);
-			gluSphere (quadric, 1.0, 16, 16);
+			gluSphere (quadric, 100.0, 30, 30);
 			glPopMatrix();
 		}
 
