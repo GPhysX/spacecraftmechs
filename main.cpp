@@ -2,7 +2,7 @@
 #include "MathTools/Quaternion.hpp"
 #include "Mechanics/AutomaticSystem.hpp"
 
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 
 using namespace MathTools;
@@ -31,8 +31,6 @@ int test_Pascal()
 
     int sum = 0;
 
-    DWORD t0 = GetTickCount();
-
     for(int iter = 0 ; iter < 10000 ; ++iter)
     {
         for(int i = 1 ; i <= 10 ; ++i)
@@ -43,10 +41,6 @@ int test_Pascal()
             }
         }
     }
-
-    DWORD t1 = GetTickCount();
-
-    cout << t1 - t0 << endl;
 
     cout << sum << endl << endl;
 
@@ -74,11 +68,12 @@ using namespace Mechanics;
 
 using namespace std;
 
+// (x-0.001)(x²+1)
 int test_filterVector()
 {
     srand(time(0));
 
-    double coeffa[4] = {0, 1, 1, 1};
+    double coeffa[4] = {0, -0.001, 1, -0.001};
     double coeffb[1] = {1};
 
     LinearAutomaticSystem<VectorD, 3, 0> a(coeffa, coeffb);
@@ -156,7 +151,7 @@ QuaternionD Exp(const QuaternionD & q)
 
 #include "MathTools/GeometryTools.hpp"
 
-int main()
+int test_rotation()
 {
     double coeffa[3] = {1, 1, 1};
     double coeffb[1] = {1};
@@ -208,5 +203,11 @@ int main()
 
     f.close();
 
+    return 0;
+}
+
+int main()
+{
+    test_filterVector();
     return 0;
 }
