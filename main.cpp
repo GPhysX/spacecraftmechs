@@ -18,7 +18,7 @@
 using namespace std;
 using namespace MathTools;
 
-double at[] = {0, 1, 1};
+double at[] = {0, 0.001, 0.001};
 double ar[] = {1, 1};
 
 SpaceCraftMech::SpaceCraft craft(at, ar);
@@ -57,15 +57,19 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_RIGHT))
                 rzCommand = -1;
 
-		    if(VERTEX_KEY_PRESSED('Z'))
+		    if(VERTEX_KEY_PRESSED('z'))
                 throttle = 1;
+		    else if(VERTEX_KEY_PRESSED('s'))
+                throttle = -1;
 
             if(glVertex.speed > 1e-5)
-                craft.Step(glVertex.speed, rxCommand, rzCommand, 0);
+                craft.Step(glVertex.speed, rxCommand, rzCommand, throttle);
 
 			glLoadIdentity();
 
 			// Craft transformation
+                VectorD v = craft.get_position();
+
                 QuaternionD q = craft.get_orientation();
 
                 VectorD tmp(q.get_u(), q.get_v(), q.get_w());
@@ -73,6 +77,7 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
                 double angle = atan2f( sqrt(tmp.get_norm2()), q.get_a() ) * 180 / M_PI;
 
                 glRotated(- 2 * angle, q.get_u(), q.get_v(), q.get_w());
+                glTranslated(v.get_x(), v.get_y(), v.get_z());
 			// End Craft transformation
 
             glPushMatrix();
