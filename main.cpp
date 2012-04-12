@@ -9,6 +9,8 @@
 //
 
 #include <iostream>
+#include <fstream>
+
 #include "factory/vertex.h"
 
 #include "MathTools/Vector.hpp"
@@ -18,7 +20,7 @@
 using namespace std;
 using namespace MathTools;
 
-double at[] = {0, 0.001, 0.001};
+double at[] = {0, 0.01, 0.01};
 double ar[] = {1, 1};
 
 SpaceCraftMech::SpaceCraft craft(at, ar);
@@ -39,6 +41,8 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		vertexLoop (0);
 
 		glVertex.factor = 0.001;
+
+        double timeAccu = 0;
 
 		while (!vertexLoop (0) && !VERTEX_KEY_PRESSED (VERTEX_KEY_ESCAPE))
 		{
@@ -62,8 +66,13 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		    else if(VERTEX_KEY_PRESSED('s'))
                 throttle = -1;
 
-            if(glVertex.speed > 1e-5)
-                craft.Step(glVertex.speed, rxCommand, rzCommand, throttle);
+            timeAccu += glVertex.speed;
+
+            if(timeAccu >= 0.005)
+            {
+                craft.Step(timeAccu, rxCommand, rzCommand, throttle);
+                timeAccu = 0;
+            }
 
 			glLoadIdentity();
 
