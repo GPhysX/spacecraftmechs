@@ -20,10 +20,10 @@
 using namespace std;
 using namespace MathTools;
 
-double at[] = {0, 0.01, 0.01};
-double ar[] = {1, 1};
+double at[] = {0, 1, 3.0};
+double ar[] = {2, 0.1};
 
-SpaceCraftMech::SpaceCraft craft(at, ar);
+SpaceCraftMech::SpaceCraft craft(at, 20, ar, 0.4);
 
 int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((unused)))
 {
@@ -61,9 +61,9 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_RIGHT))
                 rzCommand = -1;
 
-		    if(VERTEX_KEY_PRESSED('z'))
+		    if(VERTEX_KEY_PRESSED('Z'))
                 throttle = 1;
-		    else if(VERTEX_KEY_PRESSED('s'))
+		    else if(VERTEX_KEY_PRESSED('S'))
                 throttle = -1;
 
             timeAccu += glVertex.speed;
@@ -90,9 +90,11 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 			// End Craft transformation
 
             glPushMatrix();
-			glTranslatef (0.0, 0.0, 0.0);
+			glTranslatef (0.0, 0.0, -6500);
 			glColor3f (1, 0, 0);
-			gluSphere (quadric, 100.0, 30, 30);
+			gluSphere (quadric, 6500, 300, 300);
+//			glColor3f (1, 1, 0);
+//			gluSphere (quadric, 30, 30, 30);
 			glPopMatrix();
 		}
 

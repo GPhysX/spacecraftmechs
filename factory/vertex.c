@@ -445,7 +445,7 @@ void	vertexSetDimention (enum VertexDimention dimention)
 		glEnable (GL_DEPTH_TEST);
 		glMatrixMode (GL_PROJECTION);
 		glLoadIdentity ();
-		gluPerspective (45.0f, (float)glVertex.video.width / (float)(glVertex.video.height ? glVertex.video.height : 1), 0.1, 5000.0);
+		gluPerspective (80.0f, (float)glVertex.video.width / (float)(glVertex.video.height ? glVertex.video.height : 1), 0.1, 10000.0);
 		glMatrixMode (GL_MODELVIEW);
 		glLoadIdentity ();
 	}
