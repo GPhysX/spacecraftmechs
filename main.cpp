@@ -20,8 +20,8 @@
 using namespace std;
 using namespace MathTools;
 
-double at[] = {0, 1, 3.0};
-double ar[] = {2, 0.1};
+double at[] = {0, 1, 10.0};
+double ar[] = {0.5, 0.1};
 
 SpaceCraftMech::SpaceCraft craft(at, 20, ar, 0.4);
 
@@ -61,10 +61,18 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 		    else if(VERTEX_KEY_PRESSED(VERTEX_KEY_RIGHT))
                 rzCommand = -1;
 
+#ifdef __WIN32__
 		    if(VERTEX_KEY_PRESSED('Z'))
-                throttle = 1;
-		    else if(VERTEX_KEY_PRESSED('S'))
+#else
+		    if(VERTEX_KEY_PRESSED('z'))
+#endif
                 throttle = -1;
+#ifdef __WIN32__
+		    else if(VERTEX_KEY_PRESSED('S'))
+#else
+		    else if(VERTEX_KEY_PRESSED('s'))
+#endif
+                throttle = 1;
 
             timeAccu += glVertex.speed;
 
@@ -77,24 +85,19 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 			glLoadIdentity();
 
 			// Craft transformation
-                VectorD v = craft.get_position();
-
                 QuaternionD q = craft.get_orientation();
-
                 VectorD tmp(q.get_u(), q.get_v(), q.get_w());
-
                 double angle = atan2f( sqrt(tmp.get_norm2()), q.get_a() ) * 180 / M_PI;
-
                 glRotated(- 2 * angle, q.get_u(), q.get_v(), q.get_w());
-                glTranslated(v.get_x(), v.get_y(), v.get_z());
+
+                VectorD v = craft.get_position();
+                glTranslated(-v.get_x(), -v.get_y(), -v.get_z());
 			// End Craft transformation
 
             glPushMatrix();
 			glTranslatef (0.0, 0.0, -6500);
 			glColor3f (1, 0, 0);
-			gluSphere (quadric, 6500, 300, 300);
-//			glColor3f (1, 1, 0);
-//			gluSphere (quadric, 30, 30, 30);
+			gluSphere (quadric, 6500, 30, 30);
 			glPopMatrix();
 		}
 

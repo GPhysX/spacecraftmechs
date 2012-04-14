@@ -21,7 +21,9 @@ extern "C" {
 
 #define VERTEX_TIME_FPS			1000
 
-//#define VERTEX_USE_SDL
+#ifndef __WIN32__
+#define VERTEX_USE_SDL
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
