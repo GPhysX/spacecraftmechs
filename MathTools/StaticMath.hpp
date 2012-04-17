@@ -1,14 +1,11 @@
 #ifndef STATICMATH_HPP
 #define STATICMATH_HPP
 
-namespace
+namespace MathTools
 {
     template<bool> struct StaticCheck;
     template<> struct StaticCheck<true> {};
-}
 
-namespace MathTools
-{
     template<int N>
     struct Log2: StaticCheck<((N & (N - 1)) == 0)>
     {

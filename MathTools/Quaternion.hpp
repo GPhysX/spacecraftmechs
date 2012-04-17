@@ -96,7 +96,7 @@ namespace MathTools
         friend Quaternion<U> & operator*=(Quaternion<U> &, const Quaternion<U> &);
 
         template<typename U, typename V>
-        friend Quaternion<U>   operator/ (const Quaternion<U> &, V &);
+        friend Quaternion<U>   operator/ (const Quaternion<U> &, const V &);
 
         template<typename U, typename V>
         friend Quaternion<U> & operator/=(Quaternion<U> &, const V &);
@@ -200,7 +200,7 @@ namespace MathTools
     }
 
     template<typename U, typename V>
-    inline Quaternion<U>   operator/ (const Quaternion<U> & q, V & x)
+    inline Quaternion<U>   operator/ (const Quaternion<U> & q, const V & x)
     {
         Quaternion<U> ret(
                           q.a / x,

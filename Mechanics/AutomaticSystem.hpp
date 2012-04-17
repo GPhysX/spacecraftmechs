@@ -137,7 +137,7 @@ namespace Mechanics
                 b[i] = 0;
         }
 
-        LinearAutomaticSystem(double a_in[SY], double b_in[SX])
+        LinearAutomaticSystem(const double a_in[SY], const double b_in[SX])
         {
             for(int i = 0 ; i < SY ; ++i)
                 a[i] = a_in[i];
