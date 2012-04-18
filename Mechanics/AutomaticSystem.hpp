@@ -56,36 +56,24 @@ namespace Mechanics
         template<BufferType T>
         inline U ComputeSampleBuffer(U * previous, double delta)
         {
-            int iterations = 0, midBuffer = 0, offsetMin = 0, offsetMax = 0;
-
-            if (T == XBUFFER)
-                iterations = SX;
-            else
-                iterations = SY;
-
-            midBuffer = (iterations-1) / 2;
+            int offsetMin = 0, offsetMax = 0;
+            double invTe = 1, invDelta = 1 / delta;
 
             double * coeffs = (T == XBUFFER) ? b : a;
 
-            double invTe = 1;
-            double invDelta = 1 / delta;
-
             U result = U();
 
-            for(int i = 0 ; i < iterations ; i++)
+            for(int i = 0 ; i < (T == XBUFFER ? SX : SY) ; i++)
             {
                 int sign = 1;
 
                 for(int j = -offsetMin, count = 1 ; j <= offsetMax ; ++j, ++count)
                 {
-                    result += ((*(coeffs + i)) * previous[midBuffer + j] * sign * pTriangle.Get(i+1, count)) * invTe;
+                    result += ((*(coeffs + i)) * previous[(T == XBUFFER ? (SX-1)/2 : (SY-1)/2) + j] * sign * pTriangle.Get(i+1, count)) * invTe;
                     sign = -sign;
                 }
 
-                if(offsetMin == offsetMax)
-                    ++offsetMax;
-                else
-                    ++offsetMin;
+                (i % 2 ? ++offsetMin : ++offsetMax);
 
                 invTe *= invDelta;
             }
