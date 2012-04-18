@@ -116,13 +116,13 @@ namespace Mechanics
 
         LinearAutomaticSystem()
         {
-            a[0] = 1;
-            for(int i = 1 ; i < SY ; ++i)
+            for(int i = 1 ; i < SY - 1 ; ++i)
                 a[i] = 0;
+            a[SY - 1] = 1;
 
-            b[0] = 1;
-            for(int i = 1 ; i < SX ; ++i)
+            for(int i = 1 ; i < SX - 1 ; ++i)
                 b[i] = 0;
+            b[SX - 1] = 1;
         }
 
         LinearAutomaticSystem(const double a_in[SY], const double b_in[SX])

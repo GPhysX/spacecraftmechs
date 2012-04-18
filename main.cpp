@@ -7,7 +7,7 @@
 using namespace std;
 using namespace MathTools;
 
-double at[] = {0, 1, 10.0};
+double at[] = {0, 1, 10};
 double ar[] = {0.5, 0.1};
 
 SpaceCraftMech::SpaceCraft craft(at, 20, ar, 0.4);

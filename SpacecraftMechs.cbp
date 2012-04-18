@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="DebugSharedLib">
-				<Option output="bin\DebugWin32\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\DebugWin32\" />
+				<Option output="bin/DebugWin32/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugWin32/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -16,8 +16,8 @@
 				</Compiler>
 			</Target>
 			<Target title="ReleaseSharedLib">
-				<Option output="bin\ReleaseWin32\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\ReleaseWin32\" />
+				<Option output="bin/ReleaseWin32/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/ReleaseWin32/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -28,8 +28,8 @@
 				</Linker>
 			</Target>
 			<Target title="DebugDemoWin32">
-				<Option output="bin\DebugDemoWin32\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\DebugDemoWin32" />
+				<Option output="bin/DebugDemoWin32/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugDemoWin32" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -38,8 +38,8 @@
 				</Linker>
 			</Target>
 			<Target title="ReleaseDemoWin32">
-				<Option output="bin\ReleaseDemoWin32\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\ReleaseDemoWin32" />
+				<Option output="bin/ReleaseDemoWin32/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/ReleaseDemoWin32" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -48,8 +48,8 @@
 				</Linker>
 			</Target>
 			<Target title="DebugDemoLinux">
-				<Option output="bin\DebugDemoLinux\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\DebugDemoLinux" />
+				<Option output="bin/DebugDemoLinux/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugDemoLinux" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -59,8 +59,8 @@
 				</Linker>
 			</Target>
 			<Target title="ReleaseDemoLinux">
-				<Option output="bin\ReleaseDemoLinux\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\ReleaseDemoLinux" />
+				<Option output="bin/ReleaseDemoLinux/SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/ReleaseDemoLinux" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -69,56 +69,71 @@
 					<Add option="-lSDL" />
 				</Linker>
 			</Target>
+			<Target title="Test">
+				<Option output="bin/Test/Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Test" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="CWrapper\CWrapper.cpp">
+		<Unit filename="CWrapper/CWrapper.cpp">
 			<Option target="DebugSharedLib" />
 			<Option target="ReleaseSharedLib" />
 		</Unit>
-		<Unit filename="CWrapper\CWrapper.hpp">
+		<Unit filename="CWrapper/CWrapper.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="MathTools\GeometryTools.hpp">
+		<Unit filename="MathTools/GeometryTools.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="MathTools\PascalTriangle.hpp">
+		<Unit filename="MathTools/PascalTriangle.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="MathTools\Quaternion.hpp">
+		<Unit filename="MathTools/Quaternion.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="MathTools\StaticMath.hpp">
+		<Unit filename="MathTools/StaticMath.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="MathTools\TimeLineVar.hpp">
+		<Unit filename="MathTools/TimeLineVar.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="MathTools\Vector.hpp">
+		<Unit filename="MathTools/Vector.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Mechanics\AutomaticIo.hpp">
+		<Unit filename="Mechanics/AutomaticIo.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Mechanics\AutomaticSystem.hpp">
+		<Unit filename="Mechanics/AutomaticSystem.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Mechanics\PhysicalObject.hpp">
+		<Unit filename="Mechanics/PhysicalObject.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="SpaceCraft\SpaceCraft.cpp" />
-		<Unit filename="SpaceCraft\SpaceCraft.hpp">
+		<Unit filename="SpaceCraft/SpaceCraft.cpp" />
+		<Unit filename="SpaceCraft/SpaceCraft.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="factory\vertex.c">
+		<Unit filename="Test/TestLinearAutomaticSystem.cpp">
+			<Option target="Test" />
+		</Unit>
+		<Unit filename="Test/TestLinearAutomaticSystem.hpp">
+			<Option target="Test" />
+		</Unit>
+		<Unit filename="factory/vertex.c">
 			<Option compilerVar="CC" />
 			<Option target="DebugDemoWin32" />
 			<Option target="ReleaseDemoWin32" />
 			<Option target="ReleaseDemoLinux" />
 			<Option target="DebugDemoLinux" />
 		</Unit>
-		<Unit filename="factory\vertex.h">
+		<Unit filename="factory/vertex.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp">
@@ -126,6 +141,9 @@
 			<Option target="ReleaseDemoWin32" />
 			<Option target="ReleaseDemoLinux" />
 			<Option target="DebugDemoLinux" />
+		</Unit>
+		<Unit filename="test.cpp">
+			<Option target="Test" />
 		</Unit>
 		<Extensions>
 			<code_completion />
