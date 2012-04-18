@@ -28,7 +28,8 @@
 				</Linker>
 			</Target>
 			<Target title="DebugDemoWin32">
-				<Option output="SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option output="bin\DebugDemoWin32\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\DebugDemoWin32" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -37,7 +38,8 @@
 				</Linker>
 			</Target>
 			<Target title="ReleaseDemoWin32">
-				<Option output="SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option output="bin\ReleaseDemoWin32\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\ReleaseDemoWin32" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -46,7 +48,8 @@
 				</Linker>
 			</Target>
 			<Target title="DebugDemoLinux">
-				<Option output="SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option output="bin\DebugDemoLinux\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\DebugDemoLinux" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
@@ -56,7 +59,8 @@
 				</Linker>
 			</Target>
 			<Target title="ReleaseDemoLinux">
-				<Option output="SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option output="bin\ReleaseDemoLinux\SpacecraftMechs" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\ReleaseDemoLinux" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Linker>
