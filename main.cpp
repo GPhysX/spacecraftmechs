@@ -8,9 +8,9 @@ using namespace std;
 using namespace MathTools;
 
 double at[] = {0, 1, 10};
-double ar[] = {0.5, 0.1};
+double ar[] = {1, 2};
 
-SpaceCraftMech::SpaceCraft craft(at, 20, ar, 0.4);
+SpaceCraftMech::SpaceCraft craft(at, 20, ar, 0.5);
 
 int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((unused)))
 {
