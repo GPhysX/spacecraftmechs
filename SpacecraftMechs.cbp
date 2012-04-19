@@ -120,10 +120,19 @@
 		<Unit filename="SpaceCraft/SpaceCraft.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="Test/Console.cpp">
+			<Option target="Test" />
+		</Unit>
+		<Unit filename="Test/Console.hpp">
+			<Option target="Test" />
+		</Unit>
 		<Unit filename="Test/TestLinearAutomaticSystem.cpp">
 			<Option target="Test" />
 		</Unit>
 		<Unit filename="Test/TestLinearAutomaticSystem.hpp">
+			<Option target="Test" />
+		</Unit>
+		<Unit filename="Test/main.cpp">
 			<Option target="Test" />
 		</Unit>
 		<Unit filename="factory/vertex.c">
@@ -141,9 +150,6 @@
 			<Option target="ReleaseDemoWin32" />
 			<Option target="ReleaseDemoLinux" />
 			<Option target="DebugDemoLinux" />
-		</Unit>
-		<Unit filename="test.cpp">
-			<Option target="Test" />
 		</Unit>
 		<Extensions>
 			<code_completion />
