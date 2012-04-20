@@ -63,7 +63,8 @@ namespace Mechanics
             int offsetMin = 0, offsetMax = 0;
             double invTe = 1, invDelta = 1 / delta;
 
-            double * coeffs = (T == XBUFFER) ? b : a;
+            double    * coeffs     = (T == XBUFFER) ? b     : a;
+            Modulator * mod_coeffs = (T == XBUFFER) ? b_mod : a_mod;
 
             U result = U();
 
@@ -73,7 +74,7 @@ namespace Mechanics
 
                 for(int j = -offsetMin, count = 1 ; j <= offsetMax ; ++j, ++count)
                 {
-                    double coeff = a_mod[i].Modulate((*(coeffs + i)));
+                    double coeff = mod_coeffs[i].Modulate((*(coeffs + i)));
                     result += (coeff * previous[(T == XBUFFER ? (SX-1)/2 : (SY-1)/2) + j] * sign * pTriangle.Get(i+1, count)) * invTe;
                     sign = -sign;
                 }
