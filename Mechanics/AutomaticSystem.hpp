@@ -4,6 +4,7 @@
 #include "../MathTools/TimeLineVar.hpp"
 #include "../MathTools/PascalTriangle.hpp"
 #include "AutomaticIo.hpp"
+#include "Modulator.hpp"
 
 namespace Mechanics
 {
@@ -29,6 +30,9 @@ namespace Mechanics
 
         double a[SY];
         double b[SX];
+
+        Modulator a_mod[SY];
+        Modulator b_mod[SX];
 
         TimeLineVar<double, AutomaticIo<U>, SupPow2< (SX > SY ? SX : SY) >::value > xysamples;
 
@@ -69,7 +73,8 @@ namespace Mechanics
 
                 for(int j = -offsetMin, count = 1 ; j <= offsetMax ; ++j, ++count)
                 {
-                    result += ((*(coeffs + i)) * previous[(T == XBUFFER ? (SX-1)/2 : (SY-1)/2) + j] * sign * pTriangle.Get(i+1, count)) * invTe;
+                    double coeff = a_mod[i].Modulate((*(coeffs + i)));
+                    result += (coeff * previous[(T == XBUFFER ? (SX-1)/2 : (SY-1)/2) + j] * sign * pTriangle.Get(i+1, count)) * invTe;
                     sign = -sign;
                 }
 
@@ -83,16 +88,11 @@ namespace Mechanics
 
         inline void PushFinalResult(U x, U y, double delta)
         {
-            double last_t;
-            AutomaticIo<U> last_result;
-
-            xysamples.Last(last_t, last_result);
-
             AutomaticIo<U> result;
             result.x = x;
             result.y = y;
 
-            xysamples.Push(last_t + delta, result);
+            xysamples.Push(delta, result);
         }
 
         inline double ComputeLastFactor(double delta)

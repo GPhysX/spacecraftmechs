@@ -31,7 +31,7 @@ namespace MathTools
             }
         }
 
-        inline void Push(T xval, U yval)
+        inline void Push(T delta, U yval)
         {
             for(int i = 0 ; i < S-1 ; ++i)
             {
@@ -39,7 +39,7 @@ namespace MathTools
                 y[i] = y[i+1];
             }
 
-            x[S-1] = xval;
+            x[S-1] = x[S-2] + delta;
             y[S-1] = yval;
         }
 
