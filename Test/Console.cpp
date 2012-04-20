@@ -14,7 +14,7 @@ namespace Test
         system("clear");
     }
 
-    void Console::Write(const char * line)
+    void Console::Write(const string & line)
     {
         cout << line;
     }
@@ -24,7 +24,7 @@ namespace Test
         cout << endl;
     }
 
-    void Console::WriteLine(const char * line)
+    void Console::WriteLine(const string & line)
     {
         Console::Write(line);
         Console::WriteLine();
@@ -38,7 +38,7 @@ namespace Test
         char c;
 
         while( (c = cin.get()) != '\n' )
-        str += c;
+            str += c;
 
         result = 0;
         const char * sz = str.c_str();
@@ -55,5 +55,16 @@ namespace Test
         }
 
         return true;
+    }
+
+    bool Console::ReadString(string & str)
+    {
+        Console::Write("> ");
+
+        str = string();
+        char c;
+
+        while( (c = cin.get()) != '\n' )
+            str += c;
     }
 }

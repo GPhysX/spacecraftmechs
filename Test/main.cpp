@@ -6,8 +6,23 @@
 using namespace std;
 using namespace Test;
 
+bool ReadTestNumber(map<int, int(*)()> & testMap, int & n)
+{
+    Console::WriteLine("Please, choose your test :");
+    Console::WriteLine("[1] : Automatic system test");
+
+    if(Console::ReadInt(n) && testMap.find(n) != testMap.end() )
+        return true;
+    else
+    {
+        Console::WriteLine("Sorry, you might have entered an invalid choice");
+        return false;
+    }
+}
+
 int main()
 {
+    int testNumber;
     map<int, int(*)()> testMap;
     testMap[1] = TestLinearAutomaticSystem;
 
@@ -16,21 +31,10 @@ int main()
     Console::WriteLine("");
     Console::WriteLine("Welcome to the Spacecraft test program.");
 
-ReadTestNumber:
+    Console::WriteLine();
+    while(!ReadTestNumber(testMap, testNumber));
 
-    Console::WriteLine("Please, choose your test :");
-    Console::WriteLine("[1] : Automatic system test");
-
-    int n = 0;
-    if(Console::ReadInt(n) && testMap.find(n) != testMap.end() )
-        testMap[n]();
-    else
-    {
-        Console::Clear();
-        Console::WriteLine("Sorry, you might have entered an invalid choice");
-        Console::WriteLine();
-        goto ReadTestNumber;
-    }
+    testMap[testNumber]();
 
     return 0;
 }
