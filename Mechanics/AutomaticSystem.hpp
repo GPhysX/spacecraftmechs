@@ -20,7 +20,7 @@ namespace Mechanics
 
     NX and NY are the size of vectors X and Y used to compute the next step of Y
     */
-    template<typename U, int OY = 0 /*filter order on X*/, int OX = 0 /*filter order on Y*/>
+    template<typename U, int OY = 0 /*filter order on Y*/, int OX = 0 /*filter order on X*/>
     class LinearAutomaticSystem
     {
         static const int SX = OX + 1;
