@@ -82,7 +82,7 @@ int					main (int argc __attribute__ ((unused)), char* argv[] __attribute__ ((un
 			// End Craft transformation
 
             glPushMatrix();
-			glTranslatef (0.0, 0.0, -6500);
+			glTranslatef (0.0, -6500, 0.0);
 			glColor3f (1, 0, 0);
 			gluSphere (quadric, 6500, 300, 300);
 			glPopMatrix();

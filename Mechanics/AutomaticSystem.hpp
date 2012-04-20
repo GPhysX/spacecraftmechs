@@ -161,6 +161,15 @@ namespace Mechanics
 
             return result;
         }
+
+        template<BufferType T, int N>
+        inline void SetModulator(double a, double b)
+        {
+            if(T == XBUFFER)
+                a_mod[N].Set(a, b);
+            else if(T == YBUFFER)
+                b_mod[N].Set(a, b);
+        }
     };
 }
 
