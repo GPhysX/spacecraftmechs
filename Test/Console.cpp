@@ -66,5 +66,7 @@ namespace Test
 
         while( (c = cin.get()) != '\n' )
             str += c;
+
+        return true;
     }
 }
