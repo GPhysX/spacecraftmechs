@@ -113,9 +113,6 @@
 		<Unit filename="Mechanics\AutomaticSystem.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Mechanics\Modulator.hpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="Mechanics\PhysicalObject.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
