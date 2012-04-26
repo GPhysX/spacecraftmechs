@@ -4,7 +4,6 @@
 #include "../MathTools/TimeLineVar.hpp"
 #include "../MathTools/PascalTriangle.hpp"
 #include "AutomaticIo.hpp"
-#include "Modulator.hpp"
 
 namespace Mechanics
 {
